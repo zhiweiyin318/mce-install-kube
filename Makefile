@@ -1,7 +1,7 @@
 export ACM_VERSION?=2.14.0
 export MCE_VERSION?=2.9.0
-export ACM_OPERATOR_BUNDLE_IMAGE?=quay.io/acm-d/acm-operator-bundle:2.14.0-c4ffba8
-export MCE_OPERATOR_BUNDLE_IMAGE?=quay.io/acm-d/mce-operator-bundle:2.9.0-1752520057
+export ACM_OPERATOR_BUNDLE_IMAGE?=registry.redhat.io/rhacm2/acm-operator-bundle:2.14.0-1
+export MCE_OPERATOR_BUNDLE_IMAGE?=registry.redhat.io/multicluster-engine/mce-operator-bundle:2.9.0-1
 
 
 GOHOSTOS:=$(shell uname -s | tr '[:upper:]' '[:lower:]')

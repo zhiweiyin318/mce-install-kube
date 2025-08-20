@@ -2,6 +2,16 @@
 
 set -e
 
+# Check for podman or docker
+if command -v podman &> /dev/null; then
+  OCI_TOOL="podman"
+elif command -v docker &> /dev/null; then
+  OCI_TOOL="docker"
+else
+  echo "Error: Neither podman nor docker is installed."
+  exit 1
+fi
+
 update_upstream_mce_images() {
   local value_file="$1"
   local new_tag="$2"
@@ -64,20 +74,30 @@ get_images_json() {
   local image="$2"
   local image_json_file="$3"
   echo "## Pull the image $image."
-  podman pull --arch amd64 $image
-
-  echo "## Create a temporary container $name."
-  if podman container exists $name; then
-    podman rm -f $name
+  if [ "$OCI_TOOL" = "podman" ]; then
+    $OCI_TOOL pull --arch amd64 $image
+  else
+    $OCI_TOOL pull $image
   fi
 
-  podman create --arch amd64 --name $name $image
+  echo "## Create a temporary container $name."
+  if [ "$OCI_TOOL" = "podman" ]; then
+    if $OCI_TOOL container exists $name; then
+      $OCI_TOOL rm -f $name
+    fi
+    $OCI_TOOL create --arch amd64 --name $name $image
+  else
+    if $OCI_TOOL ps -a --format '{{.Names}}' | grep -w $name &>/dev/null; then
+      $OCI_TOOL rm -f $name
+    fi
+    $OCI_TOOL create --name  $name $image sh
+  fi
 
   echo "## Copy the contents out of the container to a local directory."
-  podman cp $name:/extras/$image_json_file ./
+  $OCI_TOOL cp $name:/extras/$image_json_file ./
 
   echo "Remove the temporary container $name."
-  podman rm $name
+  $OCI_TOOL rm $name
 }
 
 update_downstream_mce_images(){
