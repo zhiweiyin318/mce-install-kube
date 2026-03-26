@@ -32,6 +32,10 @@ spec:
       jsonPath: .status.desiredVersion
       name: DesiredVersion
       type: string
+    - description: Message from the most recent condition
+      jsonPath: .status.conditions[-1:].message
+      name: Message
+      type: string
     name: v1
     schema:
       openAPIV3Schema:
@@ -156,6 +160,9 @@ spec:
                       - name
                       type: object
                     type: array
+                    x-kubernetes-list-map-keys:
+                    - name
+                    x-kubernetes-list-type: map
                   imagePullPolicy:
                     description: Pull policy for the MCE images
                     type: string
@@ -269,6 +276,11 @@ spec:
                     type:
                       description: Type is the type of the cluster condition.
                       type: string
+                  required:
+                  - message
+                  - reason
+                  - status
+                  - type
                   type: object
                 type: array
               currentVersion:

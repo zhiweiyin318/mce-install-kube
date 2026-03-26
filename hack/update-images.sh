@@ -187,12 +187,14 @@ update_policy_images "./test/configuration/policy-values.yaml" "$ACM_UPSTREAM_TA
 
 # update the downstream images
 get_images_json "mce-operater-bundle" $MCE_OPERATOR_BUNDLE_IMAGE $MCE_VERSION.json
+mv $MCE_VERSION.json mce-$MCE_VERSION.json
 get_images_json "acm-operater-bundle" $ACM_OPERATOR_BUNDLE_IMAGE $ACM_VERSION.json
+mv $ACM_VERSION.json acm-$ACM_VERSION.json
 
-update_downstream_mce_images "./test/configuration/mce-ds-values.yaml" $MCE_VERSION.json
-update_downstream_acm_images "./test/configuration/policy-ds-values.yaml" $ACM_VERSION.json
+update_downstream_mce_images "./test/configuration/mce-ds-values.yaml" mce-$MCE_VERSION.json
+update_downstream_acm_images "./test/configuration/policy-ds-values.yaml" acm-$ACM_VERSION.json
 
-rm $MCE_VERSION.json
-rm $ACM_VERSION.json
+rm mce-$MCE_VERSION.json
+rm acm-$ACM_VERSION.json
 
 echo "!!! update completely!!! "

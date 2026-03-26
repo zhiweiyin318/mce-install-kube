@@ -2,11 +2,11 @@ global:
   registryOverride: "quay.io/stolostron"
   imageOverrides:
     # upstream images
-    governance_policy_propagator: "governance-policy-propagator:2.14.0-SNAPSHOT-2025-10-23-01-15-02"
-    governance_policy_addon_controller: "governance-policy-addon-controller:2.14.0-SNAPSHOT-2025-10-23-01-15-02"
-    config_policy_controller: "config-policy-controller:2.14.0-SNAPSHOT-2025-10-23-01-15-02"
-    governance_policy_framework_addon: "governance-policy-framework-addon:2.14.0-SNAPSHOT-2025-10-23-01-15-02"
-    klusterlet_addon_controller: "klusterlet-addon-controller:2.14.0-SNAPSHOT-2025-10-23-01-15-02"
+    governance_policy_propagator: "governance-policy-propagator:2.17.0-SNAPSHOT-2026-03-25-18-44-25"
+    governance_policy_addon_controller: "governance-policy-addon-controller:2.17.0-SNAPSHOT-2026-03-25-18-44-25"
+    config_policy_controller: "config-policy-controller:2.17.0-SNAPSHOT-2026-03-25-18-44-25"
+    governance_policy_framework_addon: "governance-policy-framework-addon:2.17.0-SNAPSHOT-2026-03-25-18-44-25"
+    klusterlet_addon_controller: "klusterlet-addon-controller:2.17.0-SNAPSHOT-2026-03-25-18-44-25"
   namespace: multicluster-engine
   pullSecret: open-cluster-management-image-pull-credentials
   cma:

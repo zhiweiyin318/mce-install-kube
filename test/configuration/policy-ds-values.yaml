@@ -2,11 +2,11 @@ global:
   registryOverride: "quay.io/acm-d"
   imageOverrides:
     # upstream images
-    governance_policy_propagator: "governance-policy-propagator-rhel9@sha256:57f28e416e9d84a9d690b6d262a4263d8da060a3254253c68aa7945414f15535"
-    governance_policy_addon_controller: "acm-governance-policy-addon-controller-rhel9@sha256:6cc12edafea8f130331797349cc9f1c06853cef5ee0a238d20205894a77aec96"
-    config_policy_controller: "config-policy-controller-rhel9@sha256:7ca1b3ffb295e55b4b6d08ffad5d5a982c8e9d8ce7638eb956ea877580a57975"
-    governance_policy_framework_addon: "acm-governance-policy-framework-addon-rhel9@sha256:f60071d35949e2e53cb0b8eec84f7d5c1e24bfd5f3165b34707059b61bb98cb0"
-    klusterlet_addon_controller: "klusterlet-addon-controller-rhel9@sha256:b297b4deda5906897b8d1949ddbabb6fb90224244ff2b6d86139110ac900fd9b"
+    governance_policy_propagator: "governance-policy-propagator-rhel9@sha256:2847e0074ef299d40b693e559fa269b8a08c666ec98009f612361b5570b1e643"
+    governance_policy_addon_controller: "acm-governance-policy-addon-controller-rhel9@sha256:2d01bd2b2a72d6023487ac80915492021f456965b5c4811325fa46e01f1f84ee"
+    config_policy_controller: "config-policy-controller-rhel9@sha256:ea83323ef5ed3d730d924f5a13eae8fa9f7b5e2f2f771e7d35d0cddc0f5e05a3"
+    governance_policy_framework_addon: "acm-governance-policy-framework-addon-rhel9@sha256:dfd63a518c68c46a61594fc409c5b1bbd9294b40d65d05fc67c7794f4e9d694f"
+    klusterlet_addon_controller: "klusterlet-addon-controller-rhel9@sha256:ce737b4bee884032efd0056384a21e35baa0c8e84ae9e353edf8790ef10c9b87"
   namespace: multicluster-engine
   pullSecret: open-cluster-management-image-pull-credentials
   cma:

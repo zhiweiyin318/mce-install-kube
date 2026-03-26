@@ -6,6 +6,13 @@ spec:
   addOnMeta:
     description: Distributes policies and collects policy evaluation results.
     displayName: Governance Policy Framework Addon
+  installStrategy:
+    placements:
+    - name: global
+      namespace: open-cluster-management-global-set
+      rolloutStrategy:
+        type: All
+    type: Placements
   supportedConfigs:
     - group: addon.open-cluster-management.io
       resource: addondeploymentconfigs

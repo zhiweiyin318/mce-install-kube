@@ -33,6 +33,8 @@ spec:
         name: cluster-proxy-addon
       - enabled: false
         name: managedserviceaccount
+      - enabled: false
+        name: cluster-permission
   targetNamespace: multicluster-engine
   tolerations:
     - effect: NoSchedule

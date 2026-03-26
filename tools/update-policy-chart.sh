@@ -31,7 +31,6 @@ echo "# The ACM operator bundle image is $ACM_OPERATOR_BUNDLE_IMAGE."
 TMP_DIR=$(mktemp -d)
 echo "## The temp dir $TMP_DIR"
 policy_helm_charts_base_dir="$PROJECT_ROOT/policy"
-policy_helm_charts_dir="$PROJECT_ROOT/policy/charts"
 
 echo "# Start updating the Policy helm chart."
 
@@ -48,7 +47,6 @@ crd_files=(
   "$crds_dir/grc/policy.open-cluster-management.io_policies.yaml"
   "$crds_dir/grc/policy.open-cluster-management.io_policyautomations.yaml"
   "$crds_dir/grc/policy.open-cluster-management.io_policysets.yaml"
-  "$crds_dir/cluster-lifecycle/agent.open-cluster-management.io_klusterletaddonconfigs_crd.yaml"
   "$crds_dir/multicloud-operators-subscription/apps.open-cluster-management.io_placementrules_crd_v1.yaml"
 )
 
@@ -72,8 +70,8 @@ grc_files=(
 
 for file in "${grc_files[@]}"; do 
   if [[ -f "$grc_chart_dir/templates/$file" ]]; then
-    cp "$grc_chart_dir/templates/$file" "$policy_helm_charts_dir/grc/templates/" 
-    sed -E '/^[[:space:]]*(chart:|release:|app.kubernetes.io)/d' "$policy_helm_charts_dir/grc/templates/$file" > tmp && mv tmp "$policy_helm_charts_dir/grc/templates/$file"
+    cp "$grc_chart_dir/templates/$file" "$policy_helm_charts_base_dir/templates/" 
+    sed -E '/^[[:space:]]*(chart:|release:|app.kubernetes.io)/d' "$policy_helm_charts_base_dir/templates/$file" > tmp && mv tmp "$policy_helm_charts_base_dir/templates/$file"
   else
     echo "Error: the grc file not found: $grc_chart_dir/templates/$file"
     exit 1
@@ -82,8 +80,8 @@ done
 
 # TODO: remove the namespace in the clusterrole and clusterrolebinding files of the upstream helm chart.
 grc_clusterrole_files=(
-  "$policy_helm_charts_dir/grc/templates/grc-clusterrole.yaml"
-  "$policy_helm_charts_dir/grc/templates/grc-policy-addon-clusterrole.yaml"
+  "$policy_helm_charts_base_dir/templates/grc-clusterrole.yaml"
+  "$policy_helm_charts_base_dir/templates/grc-policy-addon-clusterrole.yaml"
 )
 for file in "${grc_clusterrole_files[@]}"; do 
   if [[ -f "$file" ]]; then
@@ -94,32 +92,10 @@ for file in "${grc_clusterrole_files[@]}"; do
   fi
 done
 
-echo "## Update the cluster-lifecycle sub-chart."
-cluster_lifecycle_dir="$TMP_DIR/multiclusterhub-operator/pkg/templates/charts/toggle/cluster-lifecycle"
-cluster_lifecycle_files=(
-  "$cluster_lifecycle_dir/templates/klusterlet-addon-role.yaml"
-  "$cluster_lifecycle_dir/templates/klusterlet-addon-role_binding.yaml" 
-  "$cluster_lifecycle_dir/templates/klusterlet-addon-deployment.yaml"
-)
-for file in "${cluster_lifecycle_files[@]}"; do 
-  if [[ -f "$file" ]]; then
-    cp "$file" "$policy_helm_charts_dir/cluster-lifecycle/templates/"
-  else
-    echo "Error: the clc file not found: $file"
-    exit 1
-  fi
-done
-
-# the Values.global.registryOverride is not defined in the upstream helm chart so need override here.
-sed -i.bak 's|^\([[:space:]]*image:[[:space:]]*\)"{{ .Values.global.imageOverrides.klusterlet_addon_controller }}"|\1"{{ .Values.global.registryOverride }}/{{ .Values.global.imageOverrides.klusterlet_addon_controller }}"|' "$policy_helm_charts_dir/cluster-lifecycle/templates/klusterlet-addon-deployment.yaml"
-rm -f "$policy_helm_charts_dir/cluster-lifecycle/templates/klusterlet-addon-deployment.yaml.bak"
-
 
 echo "## Update version in policy chart."
 chart_files=(
   "$policy_helm_charts_base_dir/Chart.yaml"
-  "$policy_helm_charts_dir/grc/Chart.yaml"
-  "$policy_helm_charts_dir/cluster-lifecycle/Chart.yaml"
 )
 
 for file in "${chart_files[@]}"; do

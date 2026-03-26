@@ -6,13 +6,13 @@ set -o pipefail
 
 # Check required environment variables
 if [[ -z "${MCE_VERSION:-}" ]]; then
-  echo "Error: ACM_VERSION environment variable must be set."
+  echo "Error: MCE_VERSION environment variable must be set."
   exit 1
 fi
 
 # Validate MCE_VERSION format (must be a.b.c, where a, b, c are numbers(e.g., 2.14.3).)
 if ! [[ "$MCE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-  echo "Error: ACM_VERSION must be in the format a.b.c (e.g., 2.14.3)."
+  echo "Error: MCE_VERSION must be in the format a.b.c (e.g., 2.14.3)."
   exit 1
 fi
 

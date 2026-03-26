@@ -37,11 +37,6 @@ kubectl apply -f ./configuration/workmanagercma.yaml
 helm install policy ./policy
 ```
 
-# Enable policy addon for local-cluster
-
-```
-kubectl apply -f ./configuration/klusterletaddonconfig.yaml
-```
 
 # E2e tets
 

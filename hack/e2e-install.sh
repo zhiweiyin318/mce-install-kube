@@ -89,9 +89,6 @@ echo ""
 echo "#### Install Policy addons #####"
 make install-e2e-policy
 
-echo ""
-echo "###### Enable policy addons for local-cluster ######"
-kubectl apply -f ./configuration/klusterletaddonconfig.yaml
 
 echo ""
 echo "###### Wait unitl 4 addons in local-cluster is Available ######"

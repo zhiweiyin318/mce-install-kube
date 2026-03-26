@@ -1,8 +1,8 @@
-export ACM_VERSION?=2.14.1
-export MCE_VERSION?=2.9.1
-export ACM_OPERATOR_BUNDLE_IMAGE?=quay.io/acm-d/acm-operator-bundle:2.14.1-94fe1f9
-export MCE_OPERATOR_BUNDLE_IMAGE?=quay.io/acm-d/mce-operator-bundle:2.9.1-7a2bf7b
-export ACM_UPSTREAM_TAG?=2.14.0-SNAPSHOT-2025-10-23-01-15-02
+export ACM_VERSION?=2.17.0
+export MCE_VERSION?=2.17.0
+export ACM_OPERATOR_BUNDLE_IMAGE?=quay.io/acm-d/acm-operator-bundle:2.17.0-1774452547
+export MCE_OPERATOR_BUNDLE_IMAGE?=quay.io/acm-d/mce-operator-bundle:2.17.0-1774452440
+export ACM_UPSTREAM_TAG?=2.17.0-SNAPSHOT-2026-03-25-18-44-25
 
 GOHOSTOS:=$(shell uname -s | tr '[:upper:]' '[:lower:]')
 

@@ -6,6 +6,13 @@ spec:
   addOnMeta:
     description: Audits k8s resources and remediates violation based on configuration policies.
     displayName: Config Policy Addon
+  installStrategy:
+    placements:
+    - name: global
+      namespace: open-cluster-management-global-set
+      rolloutStrategy:
+        type: All
+    type: Placements
   supportedConfigs:
     - group: addon.open-cluster-management.io
       resource: addondeploymentconfigs

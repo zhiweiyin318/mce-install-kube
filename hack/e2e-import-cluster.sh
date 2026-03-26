@@ -72,6 +72,7 @@ metadata:
     open-cluster-management/created-via: other
   labels:
     cluster.open-cluster-management.io/clusterset: default
+    vendor: OpenShift
 spec:
   hubAcceptsClient: true
   leaseDurationSeconds: 60

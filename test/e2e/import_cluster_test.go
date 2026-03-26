@@ -8,7 +8,6 @@ import (
 	. "github.com/onsi/gomega"
 	"k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/util/rand"
 )
 
@@ -69,23 +68,6 @@ var _ = Describe("Check the status of hosted cluster.", Label("hosted cluster"),
 			klusteletNs := "klusterlet-" + hostedClusterName
 			_, err := HubClients.KubeClient.CoreV1().Secrets(klusteletNs).Get(context.TODO(), "external-managed-kubeconfig", metav1.GetOptions{})
 			return err
-		}).Should(Succeed())
-
-		By("klusterletAddonConfig should be created")
-		Eventually(func() error {
-			kac, err := GetResource(KlusterletAddonConfigGVR, hostedClusterName, hostedClusterName)
-			if err != nil {
-				return err
-			}
-			policyEnabled, _, err := unstructured.NestedBool(kac.Object, "spec", "policyController", "enabled")
-			if err != nil {
-				return err
-			}
-			if !policyEnabled {
-				return fmt.Errorf("policy in kac should be enabled")
-			}
-			return nil
-
 		}).Should(Succeed())
 
 		By("addons should be created")
